@@ -23,12 +23,8 @@ elif system() == "Linux":
 	GSETTINGS_COMMAND = 'gsettings set org.gnome.desktop.background picture-uri "file://{0}"'
 
 	try:
-		if int(get_output("gnome-session --version").split()[-1][0]) == 3:
+		if os.environ.get('DESKTOP_SESSION') == 'pantheon' or int(get_output("gnome-session --version").split()[-1][0]) == 3:
 			def change_wallpaper(uri):
 				s(GSETTINGS_COMMAND.format(uri))
 	except:
-		if os.environ.get('DESKTOP_SESSION') == 'pantheon':
-			def change_wallpaper(uri):
-				s(GSETTINGS_COMMAND.format(uri))
-		else:
-			raise OSError("Wallaper change is only supported in GNOME 3, Unity and Pantheon")
+		raise OSError("Wallaper change is only supported in GNOME 3, Unity and Pantheon")
