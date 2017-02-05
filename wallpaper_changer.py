@@ -8,7 +8,7 @@ if system() == "Windows":
 elif system() == "Darwin":
 	from os import system as s
 	def change_wallpaper(uri):
-		s('osascript -e \'tell application "Finder" to set desktop picture to POSIX file "{0}"\''.format(uri))
+		s('osascript -e \'tell application "Finder" to set desktop picture to POSIX file "{0}"\' && killall Dock'.format(uri))
 
 elif system() == "Linux":
 	import subprocess
