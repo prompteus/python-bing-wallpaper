@@ -2,21 +2,18 @@ from platform import system
 
 if system() == "Windows":
 	import ctypes
-	print("windows")
 	def change_wallpaper(uri):
 		uri = uri.replace("/","\\")
 		ctypes.windll.user32.SystemParametersInfoA(20, 26, uri, 1)
 
 elif system() == "Darwin":
 	from os import system as s
-	print("mac os")
 	def change_wallpaper(uri):
 		s('osascript -e \'tell application "Finder" to set desktop picture to POSIX file "{0}"\''.format(uri))
 
 elif system() == "Linux":
 	import subprocess
 	from os import system as s
-	print("linux")
 	def get_output(command):
 		p = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
 		out, err = p.communicate()
