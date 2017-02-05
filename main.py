@@ -3,6 +3,7 @@ from urllib.error import URLError
 import json
 import os
 import errno
+from pathlib import Path
 from wallpaper_changer import change_wallpaper
 
 BING_TODAY_JSON_URL = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US"
@@ -31,10 +32,11 @@ def main():
 	wallpaper_filename = wallpaper_relative_url.split("/")[-1]
 	wallpaper_url = BING_BASE_DOMAIN + wallpaper_relative_url
 	wallpaper_local_file_pathname = LOCAL_WALLPAPER_FILEPATH + wallpaper_filename
-	make_sure_path_exists(LOCAL_WALLPAPER_FILEPATH)
-	clear_folder(LOCAL_WALLPAPER_FILEPATH)
-	urlretrieve(wallpaper_url, wallpaper_local_file_pathname)
-	change_wallpaper(wallpaper_local_file_pathname)
+	if not Path(wallpaper_local_file_pathname).is_file():
+		make_sure_path_exists(LOCAL_WALLPAPER_FILEPATH)
+		clear_folder(LOCAL_WALLPAPER_FILEPATH)
+		urlretrieve(wallpaper_url, wallpaper_local_file_pathname)
+		change_wallpaper(wallpaper_local_file_pathname)
 
 if __name__ == "__main__":
 	main()
