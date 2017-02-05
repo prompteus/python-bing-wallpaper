@@ -3,8 +3,7 @@ from platform import system
 if system() == "Windows":
 	import ctypes
 	def change_wallpaper(uri):
-		uri = uri.replace("/","\\")
-		ctypes.windll.user32.SystemParametersInfoA(20, 26, uri, 1)
+		print("Windows are not supported.")
 
 elif system() == "Darwin":
 	from os import system as s
